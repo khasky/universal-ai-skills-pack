@@ -1,25 +1,29 @@
 # Universal AI Skills Pack
 
-Portable skills for Claude, ChatGPT, Cursor, Codex, and any Agent Skills-compatible assistant. Copy the folder, point your tool at it, and use the same practices everywhere you work.
+Skills that help agents carry routine work from start to finish, with explicit handoffs when a human should decide. Use them with Claude, ChatGPT, Cursor, Codex, and any assistant that supports the [Agent Skills](https://agentskills.io) format.
 
-<p align="center">
-  <strong>Skills for finishing routine work end-to-end, with clear spots to pull a human in when judgment matters.</strong>
-</p>
+## Table of contents
 
-<p align="center">
-  <a href="#what-is-this">What is this?</a> •
-  <a href="#skills-index">Skills index</a> •
-  <a href="#patterns-for-best-results">Patterns</a> •
-  <a href="#install">Install</a> •
-  <a href="#compatibility">Compatibility</a> •
-  <a href="#philosophy">Philosophy</a>
-</p>
+- [Universal AI Skills Pack](#universal-ai-skills-pack)
+  - [Table of contents](#table-of-contents)
+  - [What is this?](#what-is-this)
+  - [Skills index](#skills-index)
+  - [Usage examples](#usage-examples)
+  - [Typical workflow](#typical-workflow)
+  - [Patterns for best results](#patterns-for-best-results)
+  - [Install](#install)
+    - [Cursor](#cursor)
+    - [Claude Code / Codex](#claude-code--codex)
+    - [Any Agent Skills-compatible tool](#any-agent-skills-compatible-tool)
+  - [Compatibility](#compatibility)
+  - [Philosophy](#philosophy)
+  - [License](#license)
 
 ---
 
 ## What is this?
 
-About **25 core skills** for AI coding assistants. The idea is to give teams:
+**25+ core skills** for AI coding assistants. The idea is to give teams:
 
 - A path from "not started" to "actually done" on repetitive work, with less back-and-forth than ad-hoc prompts
 - The same conventions across repos, stacks, and time zones
@@ -61,6 +65,53 @@ It is a small, opinionated set: code quality, safety, documentation, releases, a
 
 ---
 
+## Usage examples
+
+These are **natural-language** patterns; your tool may also expose skills as rules, `/commands`, or plugins-phrase the same intent there.
+
+**Gate before "done"**
+
+- "Apply **verification-before-completion**: run the project's test and build commands in this session, paste the relevant output, then say whether it passes. Do not claim done before that."
+
+**Review flow**
+
+- "Use **code-review** on the diff against `main`: Critical / Suggestions / Nice to have, with file:line references."
+- "Here are review comments-use **receiving-code-review** to draft replies where we agree, ask for clarification, or push back with evidence."
+
+**Planning and shipping**
+
+- "**task-breakdown**: split [feature] into subtasks with acceptance criteria and dependencies."
+- "Then **pr-description** for this branch vs `main`; include What / How / Testing."
+
+**Quality and safety**
+
+- "**systematic-debugging** for this error: reproduce, root cause only after Phase 1-[paste logs]."
+- "**security-audit** on files touched by this change (auth, injection, secrets)."
+
+**Typical day (combined)**
+
+- "Plan with **task-breakdown**, implement, then **verification-before-completion**, then **pr-description**, then **code-review** before merge."
+
+---
+
+## Typical workflow
+
+End-to-end habit (adjust names to your process):
+
+```mermaid
+flowchart LR
+  A[task-breakdown] --> B[Implement + focused skills]
+  B --> C[verification-before-completion]
+  C --> D[pr-description]
+  D --> E[code-review]
+  E --> F[receiving-code-review]
+  F --> G[Merge / deploy + deployment-patterns if needed]
+```
+
+Not every task uses every step; **verification-before-completion** is the usual gate before claiming finished work or opening a PR.
+
+---
+
 ## Patterns for best results
 
 These skills borrow patterns from strong real-world packs so outcomes stay consistent and checkable. If you author or fork skills, read **[docs/PATTERNS.md](docs/PATTERNS.md)** first (Iron Law, phased work with clear "done," rationalization tables, red flags, verification gates, how skills chain, templates).
@@ -69,12 +120,12 @@ The skills themselves are written to be stack-agnostic where it makes sense, wit
 
 Useful pieces from that doc:
 
-- **Iron law** — One non-negotiable rule per skill when it matters (for example: no "done" without verification).
-- **Phases and success criteria** — Finish phase N before N+1; say what finished looks like at each step.
-- **Rationalizations table** — Excuse in one column, plain answer in the other so nobody skips steps on autopilot.
-- **Red flags / STOP** — When to stop and rerun or re-verify instead of pushing through.
-- **Verification gate** — Run the command that proves the claim, read the output, then speak (see **verification-before-completion**).
-- **Integration** — How skills line up (e.g. task-breakdown → implement → verify → pr-description → code-review → receiving-code-review).
+- **Iron law** - One non-negotiable rule per skill when it matters (for example: no "done" without verification).
+- **Phases and success criteria** - Finish phase N before N+1; say what finished looks like at each step.
+- **Rationalizations table** - Excuse in one column, plain answer in the other so nobody skips steps on autopilot.
+- **Red flags / STOP** - When to stop and rerun or re-verify instead of pushing through.
+- **Verification gate** - Run the command that proves the claim, read the output, then speak (see **verification-before-completion**).
+- **Integration** - How skills line up (e.g. task-breakdown → implement → verify → pr-description → code-review → receiving-code-review).
 
 ---
 
@@ -108,8 +159,14 @@ Useful pieces from that doc:
 
 ## Philosophy
 
-1. **Universal** — Backend, frontend, platform, data: the same habits can travel.
-2. **Autonomous** — Tasks are scoped so an agent can run them end-to-end, with explicit "ask a human" exits when the repo or risk profile demands it.
-3. **Few, not many** — Roughly two dozen skills cover the repeated grunt work; we avoid a hundred micro-skills nobody remembers.
-4. **Portable** — One pack works across tools; you are not locked to a single vendor.
-5. **Ops-shaped** — Written with distributed teams in mind: can you ship consistent quality and documentation without review on every line? These skills aim to make that more realistic, not magic.
+1. **Universal** - Backend, frontend, platform, data: the same habits can travel.
+2. **Autonomous** - Tasks are scoped so an agent can run them end-to-end, with explicit "ask a human" exits when the repo or risk profile demands it.
+3. **Few, not many** - Roughly two dozen skills cover the repeated grunt work; we avoid a hundred micro-skills nobody remembers.
+4. **Portable** - One pack works across tools; you are not locked to a single vendor.
+5. **Ops-shaped** - Written with distributed teams in mind: can you ship consistent quality and documentation without review on every line? These skills aim to make that more realistic, not magic.
+
+---
+
+## License
+
+[MIT](LICENSE).
